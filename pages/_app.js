@@ -4,14 +4,34 @@ import { auth, db } from "../firebase";
 import Login from "./login";
 import Loading from "../components/Loading";
 import { useEffect } from "react";
-import { collection } from "firebase/firestore";
+import { collection, setDoc, Timestamp, doc } from "firebase/firestore";
 
 function MyApp({ Component, pageProps }) {
    const [user, loading] = useAuthState(auth);
 
+   const setUser = async (user) => {
+      console.log("log: user", user);
+      try {
+         await setDoc(
+            doc(db, "users", user.uid),
+            {
+               email: user.email,
+               lastSeen: Timestamp.now(),
+               photoURL: user.photoURL,
+               name: user.displayName,
+            },
+            {
+               merge: true,
+            }
+         );
+      } catch (error) {
+         console.log("log: error", error);
+      }
+   };
+
    useEffect(() => {
       if (user) {
-         //  collection(db, "users");
+         setUser(user);
       }
    }, [user]);
 
