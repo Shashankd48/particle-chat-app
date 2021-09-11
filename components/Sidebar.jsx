@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Avatar, IconButton, Button } from "@material-ui/core";
 import {
@@ -6,24 +7,79 @@ import {
    Search as SearchIcon,
 } from "@material-ui/icons";
 import * as EmailValidator from "email-validator";
+import { auth, db } from "../firebase";
+import {
+   collection,
+   addDoc,
+   query,
+   where,
+   onSnapshot,
+} from "@firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const Sidebar = () => {
-   const createChat = () => {
+   const [user] = useAuthState(auth);
+   const [usersList, setUsersList] = useState([]);
+
+   const getUsersChat = (userEmail) => {
+      const q = query(
+         collection(db, "chats"),
+         where("users", "array-contains", userEmail)
+      );
+
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+         const users = [];
+         querySnapshot.forEach((doc) => {
+            users.push(doc.data().users);
+         });
+         if (users.length > 0) {
+            setUsersList(users);
+         }
+      });
+   };
+
+   useEffect(() => {
+      if (user) getUsersChat(user.email);
+   }, [user]);
+
+   const createChat = async () => {
       const input = prompt(
          "Please enter an email address for the user you wish to chat with"
       );
 
       if (!input) return;
 
-      if (EmailValidator.validate(input)) {
+      if (
+         EmailValidator.validate(input) &&
+         input !== user.email &&
+         !chatAlreadyExist(input)
+      ) {
          // TODO: We need to add chat into DB 'chats' collection
+
+         try {
+            const docRef = await addDoc(collection(db, "chats"), {
+               users: [user.email, input],
+            });
+            console.log("Document written with ID: ", docRef.id);
+            return;
+         } catch (e) {
+            console.error("Error adding document: ", e);
+            return;
+         }
       }
+      alert("Chat already created with this user!");
    };
+
+   const chatAlreadyExist = (recipientEmail) =>
+      usersList.filter((users) => users.includes(recipientEmail)).length > 0
+         ? true
+         : false;
 
    return (
       <Container>
          <Header>
-            <UserAvatar />
+            <UserAvatar onClick={() => auth.signOut()} />
 
             <IconsContainer>
                <IconButton>
