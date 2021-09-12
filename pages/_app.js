@@ -10,7 +10,6 @@ function MyApp({ Component, pageProps }) {
    const [user, loading] = useAuthState(auth);
 
    const setUser = async (user) => {
-      console.log("log: user", user);
       try {
          await setDoc(
             doc(db, "users", user.uid),

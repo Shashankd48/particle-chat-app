@@ -34,11 +34,9 @@ const Sidebar = () => {
          const users = [];
 
          querySnapshot.forEach((doc) => {
-            console.log("log: doc", doc.id);
             users.push({ id: doc.id, users: doc.data().users });
          });
 
-         console.log("log: doc-user", users);
          if (users.length > 0) {
             setChatList(users);
          }
@@ -62,7 +60,6 @@ const Sidebar = () => {
       let users = await getUsersByEmails(emails);
 
       // Set chat id for all the users
-
       let tempProfiles = [];
       users.forEach((user) => {
          let index = chatList.findIndex((chat) =>
@@ -71,8 +68,6 @@ const Sidebar = () => {
          if (index != -1)
             tempProfiles.push({ ...user, chatId: chatList[index].id });
       });
-
-      console.log("log: tempProfiles", tempProfiles);
 
       setUsersProfile(tempProfiles);
    };

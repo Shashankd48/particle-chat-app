@@ -1,12 +1,5 @@
 import { db } from "../firebase";
-import {
-   query,
-   collection,
-   where,
-   getDoc,
-   doc,
-   getDocs,
-} from "firebase/firestore";
+import { query, collection, where, getDocs } from "firebase/firestore";
 
 export async function getUserByEmail(userEmail) {
    const q = query(collection(db, "users"), where("email", "==", userEmail));
