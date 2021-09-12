@@ -115,6 +115,8 @@ const Sidebar = () => {
          <Header>
             <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
 
+            <Title>{user.displayName}</Title>
+
             <IconsContainer>
                <IconButton>
                   <ChatIcon />
@@ -143,13 +145,23 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const Container = styled.div``;
+const Container = styled.div`
+   background-color: whitesmoke;
+   min-height: 100vh;
+   min-width: 290px;
+   border-right: 2px solid whitesmoke;
+`;
+
+const Title = styled.p`
+   font-size: 16px;
+   font-weight: 500;
+`;
 
 const Header = styled.div`
    display: flex;
    position: sticky;
    top: 0;
-   background-color: #fff;
+   /* background-color: #fff; */
    z-index: 1;
    justify-content: space-between;
    align-items: center;
@@ -179,6 +191,8 @@ const SearchInput = styled.input`
    border: none;
    flex: 1;
    margin-left: 5px;
+   padding: 15px 10px;
+   border: 2px solid whitesmoke;
 `;
 
 const SidebarButton = styled(Button)`

@@ -6,9 +6,7 @@ import {
    getDoc,
    doc,
    getDocs,
-   collectionGroup,
 } from "firebase/firestore";
-import { async } from "@firebase/util";
 
 export async function getUserByEmail(userEmail) {
    const q = query(collection(db, "users"), where("email", "==", userEmail));
@@ -27,6 +25,5 @@ export async function getUsersByEmails(usersEmail) {
    querySnapshot.forEach((doc) => {
       users.push(doc.data());
    });
-
    return users;
 }

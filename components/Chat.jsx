@@ -15,12 +15,18 @@ import {
    getDocs,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { useRouter } from "next/router";
 
 const Chat = ({ id, profile }) => {
    //    const [user] = useAuthState(auth);
+   const router = useRouter();
+
+   const enterChat = () => {
+      router.push(`/chat/${profile.email}`);
+   };
 
    return (
-      <Container>
+      <Container onClick={enterChat}>
          {profile && (
             <Fragment>
                <UserAvatar src={profile.photoURL} />
