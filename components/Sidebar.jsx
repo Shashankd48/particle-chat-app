@@ -16,11 +16,13 @@ import {
    onSnapshot,
 } from "@firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
+import Chat from "./Chat";
+import { getUserByEmail, getUsersByEmails } from "../functions/users";
 
 const Sidebar = () => {
    const [user] = useAuthState(auth);
-   const [usersList, setUsersList] = useState([]);
+   const [chatList, setChatList] = useState([]);
+   const [usersProfile, setUsersProfile] = useState([]);
 
    const getUsersChat = (userEmail) => {
       const q = query(
@@ -30,14 +32,49 @@ const Sidebar = () => {
 
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
          const users = [];
+
          querySnapshot.forEach((doc) => {
             users.push(doc.data().users);
          });
          if (users.length > 0) {
-            setUsersList(users);
+            setChatList(users);
          }
       });
    };
+
+   const getUsersEmailList = (usersList, userLoggedIn) => {
+      let usersEmails = [];
+      usersList.forEach((emails) => {
+         emails.forEach((email) => {
+            if (email != userLoggedIn.email) {
+               usersEmails.push(email);
+            }
+         });
+      });
+      return usersEmails;
+   };
+
+   const getUsersAccount = async () => {
+      let emails = getUsersEmailList(chatList, user);
+      let users = [];
+
+      users = await getUsersByEmails(emails);
+
+      // for (const email of emails) {
+      //    let user = await getUserByEmail(email);
+      //    if (user) users.push(user);
+      // }
+
+      setUsersProfile(users);
+
+      console.log("log:1 users", users);
+   };
+
+   useEffect(() => {
+      if (chatList.length > 0) {
+         getUsersAccount();
+      }
+   }, [chatList]);
 
    useEffect(() => {
       if (user) getUsersChat(user.email);
@@ -49,6 +86,12 @@ const Sidebar = () => {
       );
 
       if (!input) return;
+
+      let userAccount = await getUserByEmail(input);
+      if (!userAccount) {
+         alert("User's account not found!");
+         return;
+      }
 
       if (
          EmailValidator.validate(input) &&
@@ -72,14 +115,14 @@ const Sidebar = () => {
    };
 
    const chatAlreadyExist = (recipientEmail) =>
-      usersList.filter((users) => users.includes(recipientEmail)).length > 0
+      chatList.filter((users) => users.includes(recipientEmail)).length > 0
          ? true
          : false;
 
    return (
       <Container>
          <Header>
-            <UserAvatar onClick={() => auth.signOut()} />
+            <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
 
             <IconsContainer>
                <IconButton>
@@ -100,6 +143,9 @@ const Sidebar = () => {
          <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
 
          {/* TODO: List of chats */}
+         {usersProfile.map((profile, index) => {
+            return <Chat profile={profile} key={`${index}-chat`} />;
+         })}
       </Container>
    );
 };
