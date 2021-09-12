@@ -3,6 +3,7 @@ import Head from "next/dist/shared/lib/head";
 import { Button } from "@material-ui/core";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "@firebase/auth";
+import Image from "next/image";
 
 const Login = () => {
    const signIn = () => {
@@ -13,10 +14,18 @@ const Login = () => {
       <Container>
          <Head>
             <title>Login</title>
+            <link rel="icon" href="/whatsapp-icon.svg" />
          </Head>
 
          <LoginContainer>
-            <Logo src="/whatsapp-icon.svg" alt="Logo" />
+            <ImageContainer>
+               <Image
+                  src="/whatsapp-icon.svg"
+                  alt="Logo"
+                  width={200}
+                  height={200}
+               />
+            </ImageContainer>
 
             <Button variant="outlined" onClick={signIn}>
                Sign in with Google
@@ -28,10 +37,8 @@ const Login = () => {
 
 export default Login;
 
-const Logo = styled.img`
-   height: 200px;
-   width: 200px;
-   margin-bottom: 50px;
+const ImageContainer = styled.div`
+   margin-bottom: 45px;
 `;
 
 const LoginContainer = styled.div`

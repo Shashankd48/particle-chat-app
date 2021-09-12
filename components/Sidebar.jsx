@@ -57,17 +57,8 @@ const Sidebar = () => {
    const getUsersAccount = async () => {
       let emails = getUsersEmailList(chatList, user);
       let users = [];
-
       users = await getUsersByEmails(emails);
-
-      // for (const email of emails) {
-      //    let user = await getUserByEmail(email);
-      //    if (user) users.push(user);
-      // }
-
       setUsersProfile(users);
-
-      console.log("log:1 users", users);
    };
 
    useEffect(() => {
