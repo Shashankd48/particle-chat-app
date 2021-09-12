@@ -20,6 +20,8 @@ const Chat = () => {
 };
 export default Chat;
 
+// export async function getServerSideProps(context) {}
+
 const Container = styled.div`
    display: flex;
 `;

@@ -34,8 +34,11 @@ const Sidebar = () => {
          const users = [];
 
          querySnapshot.forEach((doc) => {
-            users.push(doc.data().users);
+            console.log("log: doc", doc.id);
+            users.push({ id: doc.id, users: doc.data().users });
          });
+
+         console.log("log: doc-user", users);
          if (users.length > 0) {
             setChatList(users);
          }
@@ -44,8 +47,8 @@ const Sidebar = () => {
 
    const getUsersEmailList = (usersList, userLoggedIn) => {
       let usersEmails = [];
-      usersList.forEach((emails) => {
-         emails.forEach((email) => {
+      usersList.forEach((chats) => {
+         chats.users.forEach((email) => {
             if (email != userLoggedIn.email) {
                usersEmails.push(email);
             }
@@ -56,9 +59,22 @@ const Sidebar = () => {
 
    const getUsersAccount = async () => {
       let emails = getUsersEmailList(chatList, user);
-      let users = [];
-      users = await getUsersByEmails(emails);
-      setUsersProfile(users);
+      let users = await getUsersByEmails(emails);
+
+      // Set chat id for all the users
+
+      let tempProfiles = [];
+      users.forEach((user) => {
+         let index = chatList.findIndex((chat) =>
+            chat.users.includes(user.email)
+         );
+         if (index != -1)
+            tempProfiles.push({ ...user, chatId: chatList[index].id });
+      });
+
+      console.log("log: tempProfiles", tempProfiles);
+
+      setUsersProfile(tempProfiles);
    };
 
    useEffect(() => {
@@ -106,7 +122,7 @@ const Sidebar = () => {
    };
 
    const chatAlreadyExist = (recipientEmail) =>
-      chatList.filter((users) => users.includes(recipientEmail)).length > 0
+      chatList.filter((chat) => chat.users.includes(recipientEmail)).length > 0
          ? true
          : false;
 
@@ -137,7 +153,13 @@ const Sidebar = () => {
 
          {/* TODO: List of chats */}
          {usersProfile.map((profile, index) => {
-            return <Chat profile={profile} key={`${index}-chat`} />;
+            return (
+               <Chat
+                  profile={profile}
+                  key={profile.chatId}
+                  id={profile.chatId}
+               />
+            );
          })}
       </Container>
    );

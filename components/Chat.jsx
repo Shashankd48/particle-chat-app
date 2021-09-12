@@ -17,12 +17,12 @@ import {
 import { db } from "../firebase";
 import { useRouter } from "next/router";
 
-const Chat = ({ id, profile }) => {
+const Chat = ({ profile }) => {
    //    const [user] = useAuthState(auth);
    const router = useRouter();
 
    const enterChat = () => {
-      router.push(`/chat/${profile.email}`);
+      router.push(`/chat/${profile.chatId}`);
    };
 
    return (
