@@ -124,7 +124,7 @@ const Sidebar = () => {
    return (
       <Container>
          <Header>
-            <UserAvatar onClick={() => auth.signOut()} src={user?.photoURL} />
+            <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
 
             <Title>{user.displayName}</Title>
 
@@ -155,36 +155,6 @@ const Sidebar = () => {
          </ActionContainer>
 
          {/* TODO: List of chats */}
-         {usersProfile.map((profile, index) => {
-            return (
-               <Chat
-                  profile={profile}
-                  key={profile.chatId}
-                  id={profile.chatId}
-               />
-            );
-         })}
-
-         {usersProfile.map((profile, index) => {
-            return (
-               <Chat
-                  profile={profile}
-                  key={profile.chatId}
-                  id={profile.chatId}
-               />
-            );
-         })}
-
-         {usersProfile.map((profile, index) => {
-            return (
-               <Chat
-                  profile={profile}
-                  key={profile.chatId}
-                  id={profile.chatId}
-               />
-            );
-         })}
-
          {usersProfile.map((profile, index) => {
             return (
                <Chat

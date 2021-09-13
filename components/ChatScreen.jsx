@@ -10,7 +10,7 @@ import {
    InsertEmoticon as InsertEmoticonIcon,
    Mic as MicIcon,
 } from "@material-ui/icons";
-import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { doc, setDoc, Timestamp, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 
 const ChatScreen = ({ chat, messages }) => {
@@ -23,6 +23,17 @@ const ChatScreen = ({ chat, messages }) => {
    const sendMessage = async (e) => {
       e.preventDefault();
 
+      //Add message to messages collection with chatId
+      await addDoc(collection(db, "messages"), {
+         user: user.email,
+         timestamp: Timestamp.now(),
+         photoURL: user.photoURL,
+         name: user.displayName,
+         chatId: router.query.id,
+         message: input,
+      });
+
+      // update user lastSeen
       await setDoc(
          doc(db, "users", user.uid),
          {
@@ -32,6 +43,8 @@ const ChatScreen = ({ chat, messages }) => {
             merge: true,
          }
       );
+
+      setInput("");
    };
 
    return (
