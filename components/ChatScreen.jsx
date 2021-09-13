@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Avatar, IconButton } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -9,12 +10,29 @@ import {
    InsertEmoticon as InsertEmoticonIcon,
    Mic as MicIcon,
 } from "@material-ui/icons";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 const ChatScreen = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
    const router = useRouter();
+   const [input, setInput] = useState("");
 
    const ShowMessages = () => {};
+
+   const sendMessage = async (e) => {
+      e.preventDefault();
+
+      await setDoc(
+         doc(db, "users", user.uid),
+         {
+            lastSeen: Timestamp.now(),
+         },
+         {
+            merge: true,
+         }
+      );
+   };
 
    return (
       <Container>
@@ -22,7 +40,7 @@ const ChatScreen = ({ chat, messages }) => {
             <Avatar />
 
             <HeaderInformation>
-               <h3>Rec Email</h3>
+               <h3>{chat.users[1]}</h3>
                <p>last seen...</p>
             </HeaderInformation>
 
@@ -48,7 +66,19 @@ const ChatScreen = ({ chat, messages }) => {
                <InsertEmoticonIcon />
             </IconButton>
 
-            <Input />
+            <Input
+               value={input}
+               onChange={(e) => setInput(e.target.value)}
+               placeholder="Enter message here..."
+            />
+            <button
+               hidden
+               disabled={!input}
+               onClick={sendMessage}
+               type="submit"
+            >
+               Send Message
+            </button>
 
             <IconButton>
                <MicIcon />
