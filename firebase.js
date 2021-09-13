@@ -12,6 +12,18 @@ const firebaseConfig = {
    measurementId: "G-30RHLZGEMW",
 };
 
+console.log("api", process.env.APIKEY);
+
+// const firebaseConfig = {
+//    apiKey: process.env.APIKEY,
+//    authDomain: process.env.AUTH_DOMAIN,
+//    projectId: process.env.PROJECT_ID,
+//    storageBucket: process.env.STORAGE_BUCKET,
+//    messagingSenderId: process.env.MESSAGING_SENDER_Id,
+//    appId: process.env.APP_ID,
+//    measurementId: process.env.MEASURENT_ID,
+// };
+
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 const db = getFirestore(app);

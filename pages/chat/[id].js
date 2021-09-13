@@ -10,9 +10,11 @@ import {
    getDocs,
    getDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Chat = ({ chat, messages }) => {
+   const [user] = useAuthState(auth);
    return (
       <Container>
          <Head>
