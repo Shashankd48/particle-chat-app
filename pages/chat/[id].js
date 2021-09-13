@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { getMessagesByChatId } from "../../functions/chats";
 
 const Chat = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
@@ -38,25 +39,12 @@ export async function getServerSideProps(context) {
 
    console.log("CHAT ", chat);
 
-   // const messagesRes = await ref
-   //    .collection("messages")
-   //    .orderBy("timestamp", "acs")
-   //    .get();
+   const messages = await getMessagesByChatId(context.query.id);
 
-   // const messages = messagesRes.docs
-   //    .map((doc) => ({
-   //       id: doc.id,
-   //       ...doc.data(),
-   //    }))
-   //    .map((messages) => ({
-   //       ...messages,
-   //       timestamp: messages.timestamp.toDate().getTime(),
-   //    }));
-
-   // const chatRef
+   console.log("log: ", messages);
 
    return {
-      props: { chat: chat, messages: [] },
+      props: { chat, messages: JSON.stringify(messages) },
    };
 }
 
