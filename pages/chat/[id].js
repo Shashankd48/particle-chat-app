@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getMessagesByChatId } from "../../functions/chats";
+import { getChatById, getMessagesByChatId } from "../../functions/chats";
 
 const Chat = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
@@ -33,9 +33,7 @@ const Chat = ({ chat, messages }) => {
 export default Chat;
 
 export async function getServerSideProps(context) {
-   const ref = doc(db, "chats", context.query.id);
-   const chatRef = await getDoc(ref);
-   const chat = { id: chatRef.id, ...chatRef.data() };
+   const chat = await getChatById(context.query.id);
 
    console.log("CHAT ", chat);
 

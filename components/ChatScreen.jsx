@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, IconButton } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,15 +10,65 @@ import {
    InsertEmoticon as InsertEmoticonIcon,
    Mic as MicIcon,
 } from "@material-ui/icons";
-import { doc, setDoc, Timestamp, addDoc, collection } from "firebase/firestore";
+import {
+   doc,
+   setDoc,
+   Timestamp,
+   addDoc,
+   collection,
+   query,
+   where,
+   onSnapshot,
+} from "firebase/firestore";
 import { db } from "../firebase";
+import Message from "./Message";
 
 const ChatScreen = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
    const router = useRouter();
    const [input, setInput] = useState("");
+   const [messagesSnapshot, setMessagesSnapshot] = useState([]);
 
-   const ShowMessages = () => {};
+   const getMessagesSnapshot = () => {
+      const q = query(
+         collection(db, "messages"),
+         where("chatId", "==", router.query.id)
+      );
+
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+         const messages = [];
+
+         querySnapshot.forEach((doc) => {
+            messages.push({ id: doc.id, ...doc.data() });
+         });
+
+         console.log("log: Message", messages);
+
+         if (messages.length > 0) {
+            setMessagesSnapshot(messages);
+         }
+      });
+   };
+
+   // useEffect(() => {
+   //    if (typeof window !== "undefined") {
+   //       getMessagesSnapshot();
+   //    }
+   // }, [router.query.id]);
+
+   const ShowMessages = () => {
+      if (messagesSnapshot.length > 0) {
+         console.log("log: CSR");
+         return messagesSnapshot.map((message) => (
+            <Message message={message} key={message.id} user={message.user} />
+         ));
+      } else {
+         console.log("log: SSR");
+         return JSON.parse(messages).map((message) => (
+            <Message message={message} key={message.id} user={message.user} />
+         ));
+      }
+   };
 
    const sendMessage = async (e) => {
       e.preventDefault();
@@ -70,6 +120,7 @@ const ChatScreen = ({ chat, messages }) => {
 
          <MessageContainer>
             {/*TODO: Messages Container */}
+            {ShowMessages()}
 
             <EndOfMessage />
          </MessageContainer>
