@@ -144,9 +144,47 @@ const Sidebar = () => {
             <SearchInput placeholder="Search in chats" />
          </Search>
 
-         <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
+         <ActionContainer>
+            <SidebarButton
+               onClick={createChat}
+               color="primary"
+               variant="contained"
+            >
+               Start a new chat
+            </SidebarButton>
+         </ActionContainer>
 
          {/* TODO: List of chats */}
+         {usersProfile.map((profile, index) => {
+            return (
+               <Chat
+                  profile={profile}
+                  key={profile.chatId}
+                  id={profile.chatId}
+               />
+            );
+         })}
+
+         {usersProfile.map((profile, index) => {
+            return (
+               <Chat
+                  profile={profile}
+                  key={profile.chatId}
+                  id={profile.chatId}
+               />
+            );
+         })}
+
+         {usersProfile.map((profile, index) => {
+            return (
+               <Chat
+                  profile={profile}
+                  key={profile.chatId}
+                  id={profile.chatId}
+               />
+            );
+         })}
+
          {usersProfile.map((profile, index) => {
             return (
                <Chat
@@ -163,10 +201,25 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Container = styled.div`
-   background-color: whitesmoke;
-   min-height: 100vh;
+   height: 100vh;
+   max-width: 320px;
    min-width: 290px;
    border-right: 2px solid whitesmoke;
+   flex: 0.45;
+   overflow-y: scroll;
+
+   ::-webkit-scrollbar {
+      display: none;
+   }
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+`;
+
+const ActionContainer = styled.div`
+   display: flex;
+   justify-content: center;
+   border-bottom: 2px solid whitesmoke;
+   padding: 20px 0;
 `;
 
 const Title = styled.p`
@@ -178,8 +231,8 @@ const Header = styled.div`
    display: flex;
    position: sticky;
    top: 0;
-   /* background-color: #fff; */
-   z-index: 1;
+   background-color: #fff;
+   z-index: 10;
    justify-content: space-between;
    align-items: center;
    padding: 15px;
@@ -213,9 +266,5 @@ const SearchInput = styled.input`
 `;
 
 const SidebarButton = styled(Button)`
-   width: 100%;
-   &&& {
-      border-bottom: 2px solid whitesmoke;
-      border-top: 2px solid whitesmoke;
-   }
+   width: 92%;
 `;

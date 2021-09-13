@@ -6,6 +6,8 @@ import { auth } from "../firebase";
 import {
    MoreVert as MoreVertIcon,
    AttachFile as AttachFileIcon,
+   InsertEmoticon as InsertEmoticonIcon,
+   Mic as MicIcon,
 } from "@material-ui/icons";
 
 const ChatScreen = ({ chat, messages }) => {
@@ -40,6 +42,18 @@ const ChatScreen = ({ chat, messages }) => {
 
             <EndOfMessage />
          </MessageContainer>
+
+         <InputContainer>
+            <IconButton>
+               <InsertEmoticonIcon />
+            </IconButton>
+
+            <Input />
+
+            <IconButton>
+               <MicIcon />
+            </IconButton>
+         </InputContainer>
       </Container>
    );
 };
@@ -47,6 +61,29 @@ const ChatScreen = ({ chat, messages }) => {
 export default ChatScreen;
 
 const Container = styled.div``;
+
+const Input = styled.input`
+   flex: 1;
+   outline: none;
+   padding: 15px 20px;
+   position: sticky;
+   bottom: 0;
+   background-color: #fff;
+   margin: 0 15px;
+   border-radius: 5px;
+   border: none;
+   font-size: 16px;
+`;
+
+const InputContainer = styled.form`
+   display: flex;
+   align-items: center;
+   padding: 10px;
+   position: sticky;
+   bottom: 0;
+   background-color: whitesmoke;
+   z-index: 100;
+`;
 
 const Header = styled.div`
    position: sticky;
@@ -75,6 +112,10 @@ const HeaderInformation = styled.div`
 
 const EndOfMessage = styled.div``;
 
-const MessageContainer = styled.div``;
+const MessageContainer = styled.div`
+   padding: 30px;
+   background-color: #e5ded8;
+   min-height: 90vh;
+`;
 
 const HeaderIcons = styled.div``;
