@@ -51,10 +51,11 @@ const ChatScreen = ({ chat, messages }) => {
    };
 
    // useEffect(() => {
-   //    if (typeof window !== "undefined") {
-   //       getMessagesSnapshot();
-   //    }
-   // }, [router.query.id]);
+   //    // if (typeof window !== "undefined") {
+   //    //    getMessagesSnapshot();
+   //    //    return;
+   //    // }
+   // }, [messages]);
 
    const ShowMessages = () => {
       if (messagesSnapshot.length > 0) {
