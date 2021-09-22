@@ -1,16 +1,7 @@
 import styled from "styled-components";
-import Head from "next/dist/shared/lib/head";
 import Sidebar from "../../components/Sidebar";
 import ChatScreen from "../../components/ChatScreen";
-import {
-   collection,
-   doc,
-   query,
-   where,
-   getDocs,
-   getDoc,
-} from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getChatById, getMessagesByChatId } from "../../functions/chats";
 import Titlebar from "../../components/Titlebar";
