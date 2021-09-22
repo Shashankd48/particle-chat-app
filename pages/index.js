@@ -40,6 +40,7 @@ const RightSection = styled.div`
    display: flex;
    flex-direction: column;
    height: 100vh;
+   background-color: whitesmoke;
 `;
 
 const ImageContainer = styled.div``;

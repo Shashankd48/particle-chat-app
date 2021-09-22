@@ -18,11 +18,13 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";
 import { getUserByEmail, getUsersByEmails } from "../functions/users";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
    const [user] = useAuthState(auth);
    const [chatList, setChatList] = useState([]);
    const [usersProfile, setUsersProfile] = useState([]);
+   const router = useRouter();
 
    const getUsersChat = (userEmail) => {
       const q = query(
@@ -126,7 +128,7 @@ const Sidebar = () => {
          <Header>
             <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
 
-            <Title>{user.displayName}</Title>
+            <Title onClick={() => router.push("/")}>{user.displayName}</Title>
 
             <IconsContainer>
                <IconButton>
@@ -195,6 +197,7 @@ const ActionContainer = styled.div`
 const Title = styled.p`
    font-size: 16px;
    font-weight: 500;
+   cursor: pointer;
 `;
 
 const Header = styled.div`
