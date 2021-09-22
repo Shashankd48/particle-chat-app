@@ -13,14 +13,13 @@ import {
 import { auth, db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getChatById, getMessagesByChatId } from "../../functions/chats";
+import Titlebar from "../../components/Titlebar";
 
 const Chat = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
    return (
       <Container>
-         <Head>
-            <title>Chat with {chat.users[1]}</title>
-         </Head>
+         <Titlebar title={`Chat with ${chat.users[1]}`} />
 
          <Sidebar />
 

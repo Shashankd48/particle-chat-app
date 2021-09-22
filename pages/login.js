@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "@firebase/auth";
 import Image from "next/image";
+import Titlebar from "../components/Titlebar";
 
 const Login = () => {
    const signIn = () => {
@@ -12,10 +13,7 @@ const Login = () => {
 
    return (
       <Container>
-         <Head>
-            <title>Login</title>
-            <link rel="icon" href="/whatsapp-icon.svg" />
-         </Head>
+         <Titlebar title="Login" />
 
          <LoginContainer>
             <ImageContainer>
