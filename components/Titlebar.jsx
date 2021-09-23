@@ -1,6 +1,6 @@
 import Head from "next/dist/shared/lib/head";
 
-const WhatsappIcon = "/whatsapp-icon.svg";
+const WhatsappIcon = "/favicon.svg";
 
 const Titlebar = ({ title, favicon = WhatsappIcon }) => {
    return (

@@ -5,6 +5,7 @@ import { auth, provider } from "../firebase";
 import { signInWithPopup } from "@firebase/auth";
 import Image from "next/image";
 import Titlebar from "../components/Titlebar";
+import "../styles/Home.module.css";
 
 const Login = () => {
    const signIn = () => {
@@ -13,16 +14,11 @@ const Login = () => {
 
    return (
       <Container>
-         <Titlebar title="Login" />
+         <Titlebar title="Login | Particle-Chat" />
 
          <LoginContainer>
             <ImageContainer>
-               <Image
-                  src="/whatsapp-icon.svg"
-                  alt="Logo"
-                  width={200}
-                  height={200}
-               />
+               <Image src="/logo.svg" alt="Logo" width="300" height="300" />
             </ImageContainer>
 
             <Button variant="outlined" onClick={signIn}>
@@ -36,18 +32,27 @@ const Login = () => {
 export default Login;
 
 const ImageContainer = styled.div`
-   margin-bottom: 45px;
+   @media (max-width: 768px) {
+      max-width: 100;
+   }
 `;
 
 const LoginContainer = styled.div`
    display: flex;
    flex-direction: column;
    border: 3px solid whitesmoke;
-   padding: 100px;
+   padding: 70px;
    align-items: center;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-   border-radius: 5px;
+   border-radius: 25px;
    background-color: #fff;
+
+   @media (max-width: 768px) {
+      padding: 40px;
+   }
+   @media (max-width: 568px) {
+      padding: 40px 20px;
+   }
 `;
 
 const Container = styled.div`

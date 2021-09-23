@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
-import Image from "next/dist/client/image";
+import Image from "next/image";
 
 export default function Home() {
    return (
@@ -16,7 +16,12 @@ export default function Home() {
 
          <RightSection>
             <ImageContainer>
-               <Image src="/undraw_Messaging.svg" width={400} height={400} />
+               <Image
+                  src="/undraw_Messaging.svg"
+                  width={400}
+                  height={400}
+                  alt="Undraw Messaging"
+               />
             </ImageContainer>
             <TextContainer>
                <Heading>Start new Conversation</Heading>

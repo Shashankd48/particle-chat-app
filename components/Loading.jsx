@@ -1,4 +1,5 @@
 import { Circle } from "better-react-spinkit";
+import Image from "next/image";
 
 const Loading = () => {
    return (
@@ -10,14 +11,9 @@ const Loading = () => {
          }}
       >
          <div>
-            <img
-               src="/whatsapp-icon.svg"
-               alt="Logo"
-               height={200}
-               style={{ marginBottom: 25 }}
-            />
+            <Image src="/logo.svg" alt="Logo" height={300} width={300} />
 
-            <Circle color="#3cbc28" size={60} />
+            <Circle color="#683bf4" size={60} />
          </div>
       </center>
    );
