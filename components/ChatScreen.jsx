@@ -101,7 +101,7 @@ const ChatScreen = ({ chat, messages }) => {
    return (
       <Container>
          <Header>
-            <Avatar />
+            <Avatar alt="User's Avatar" />
 
             <HeaderInformation>
                <h3>{chat.users[1]}</h3>

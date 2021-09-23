@@ -29,7 +29,7 @@ const Chat = ({ profile }) => {
       <Container onClick={enterChat}>
          {profile && (
             <Fragment>
-               <UserAvatar src={profile.photoURL} />
+               <UserAvatar src={profile.photoURL} alt="Profile picture" />
                <Title>{profile.name}</Title>
             </Fragment>
          )}

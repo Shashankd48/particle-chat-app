@@ -126,7 +126,11 @@ const Sidebar = () => {
    return (
       <Container>
          <Header>
-            <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
+            <UserAvatar
+               onClick={() => auth.signOut()}
+               src={user.photoURL}
+               alt="Contact picture"
+            />
 
             <Title onClick={() => router.push("/")}>{user.displayName}</Title>
 
