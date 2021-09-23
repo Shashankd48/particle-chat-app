@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import Head from "next/dist/shared/lib/head";
 import { Button, IconButton } from "@material-ui/core";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "@firebase/auth";
 import Image from "next/image";
 import Titlebar from "../components/Titlebar";
-import "../styles/Home.module.css";
 
 const Login = () => {
    const signIn = () => {
@@ -21,13 +19,13 @@ const Login = () => {
                <Image src="/logo.svg" alt="Logo" width="300" height="300" />
             </ImageContainer>
 
-            <IconButton>
-               <LoginButton onClick={signIn} variant="contained">
-                  Sign in with Google
-               </LoginButton>
-            </IconButton>
-
-            <NewButton>Sign in with Google</NewButton>
+            <button
+               className="custom-btn btn-8"
+               onClick={signIn}
+               name="Sign In"
+            >
+               <span>Sign in with Google</span>
+            </button>
          </LoginContainer>
       </Container>
    );
@@ -51,32 +49,6 @@ const LoginButton = styled.div`
    font-weight: 500;
    letter-spacing: 1px;
    cursor: pointer;
-`;
-
-const NewButton = styled.div`
-   background-image: linear-gradient(
-      to right,
-      #4776e6 0%,
-      #8e54e9 51%,
-      #4776e6 100%
-   );
-
-   margin: 10px;
-   padding: 15px 45px;
-   text-align: center;
-   text-transform: uppercase;
-   transition: 0.5s;
-   background-size: 200% auto;
-   color: white;
-   box-shadow: 0 0 20px #eee;
-   border-radius: 10px;
-   display: block;
-
-   :hover {
-      background-position: right center; /* change the direction of the change here */
-      color: #fff;
-      text-decoration: none;
-   }
 `;
 
 const ImageContainer = styled.div`
@@ -109,3 +81,9 @@ const Container = styled.div`
    height: 100vh;
    background-color: #f8f8f8;
 `;
+
+// <IconButton>
+//                <LoginButton onClick={signIn} variant="contained">
+//                   Sign in with Google
+//                </LoginButton>
+//             </IconButton>
