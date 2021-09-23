@@ -26,6 +26,8 @@ const Login = () => {
                   Sign in with Google
                </LoginButton>
             </IconButton>
+
+            <NewButton>Sign in with Google</NewButton>
          </LoginContainer>
       </Container>
    );
@@ -49,6 +51,32 @@ const LoginButton = styled.div`
    font-weight: 500;
    letter-spacing: 1px;
    cursor: pointer;
+`;
+
+const NewButton = styled.div`
+   background-image: linear-gradient(
+      to right,
+      #4776e6 0%,
+      #8e54e9 51%,
+      #4776e6 100%
+   );
+
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+
+   :hover {
+      background-position: right center; /* change the direction of the change here */
+      color: #fff;
+      text-decoration: none;
+   }
 `;
 
 const ImageContainer = styled.div`
