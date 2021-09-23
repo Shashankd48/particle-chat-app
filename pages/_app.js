@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
             {
                email: user.email,
                lastSeen: Timestamp.now(),
-               photoURL: user.photoURL,
+               photoURL: user?.photoURL,
                name: user.displayName,
             },
             {

@@ -123,11 +123,13 @@ const Sidebar = () => {
          ? true
          : false;
 
+   const logout = () => auth.signOut();
+
    return (
       <Container>
          <Header>
             <UserAvatar
-               onClick={() => auth.signOut()}
+               onClick={logout}
                src={user.photoURL}
                alt="Contact picture"
             />
@@ -160,7 +162,6 @@ const Sidebar = () => {
             </SidebarButton>
          </ActionContainer>
 
-         {/* TODO: List of chats */}
          {usersProfile.map((profile, index) => {
             return (
                <Chat

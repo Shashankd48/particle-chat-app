@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Button, IconButton } from "@material-ui/core";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "@firebase/auth";
 import Image from "next/image";
@@ -33,24 +32,6 @@ const Login = () => {
 
 export default Login;
 
-const LoginButton = styled.div`
-   color: #fff;
-   padding: 10px 15px;
-   border-radius: 4px;
-   background: rgb(126, 56, 237);
-   background: linear-gradient(
-      90deg,
-      rgba(126, 56, 237, 1) 0%,
-      rgba(200, 47, 214, 1) 100%,
-      rgba(0, 212, 255, 1) 100%
-   );
-   text-transform: uppercase;
-   font-size: 14px;
-   font-weight: 500;
-   letter-spacing: 1px;
-   cursor: pointer;
-`;
-
 const ImageContainer = styled.div`
    @media (max-width: 768px) {
       max-width: 100;
@@ -81,9 +62,3 @@ const Container = styled.div`
    height: 100vh;
    background-color: #f8f8f8;
 `;
-
-// <IconButton>
-//                <LoginButton onClick={signIn} variant="contained">
-//                   Sign in with Google
-//                </LoginButton>
-//             </IconButton>
