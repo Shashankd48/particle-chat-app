@@ -3,7 +3,11 @@ import Sidebar from "../../components/Sidebar";
 import ChatScreen from "../../components/ChatScreen";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getChatById, getMessagesByChatId } from "../../functions/chats";
+import {
+   deleteMessagesByChatId,
+   getChatById,
+   getMessagesByChatId,
+} from "../../functions/chats";
 import Titlebar from "../../components/Titlebar";
 
 const Chat = ({ chat, messages }) => {

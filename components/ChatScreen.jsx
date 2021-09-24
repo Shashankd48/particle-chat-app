@@ -19,6 +19,7 @@ import {
    query,
    where,
    onSnapshot,
+   orderBy,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import Message from "./Message";
@@ -32,7 +33,8 @@ const ChatScreen = ({ chat, messages }) => {
    const getMessagesSnapshot = () => {
       const q = query(
          collection(db, "messages"),
-         where("chatId", "==", router.query.id)
+         where("chatId", "==", router.query.id),
+         orderBy("timestamp", "asc")
       );
 
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -59,12 +61,10 @@ const ChatScreen = ({ chat, messages }) => {
 
    const ShowMessages = () => {
       if (messagesSnapshot.length > 0) {
-         console.log("log: CSR");
          return messagesSnapshot.map((message) => (
             <Message message={message} key={message.id} user={message.user} />
          ));
       } else {
-         console.log("log: SSR");
          return JSON.parse(messages).map((message) => (
             <Message message={message} key={message.id} user={message.user} />
          ));
