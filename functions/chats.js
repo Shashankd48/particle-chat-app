@@ -9,6 +9,7 @@ import {
    orderBy,
    deleteDoc,
 } from "firebase/firestore";
+import moment from "moment";
 
 export async function getMessagesByChatId(chatId) {
    const q = query(
@@ -22,6 +23,7 @@ export async function getMessagesByChatId(chatId) {
       messages.push({
          id: doc.id,
          ...doc.data(),
+         time: moment(new Date(doc.data().timestamp.toDate())).format("LT"),
       });
    });
    return messages;

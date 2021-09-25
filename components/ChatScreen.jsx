@@ -25,6 +25,8 @@ import { db } from "../firebase";
 import Message from "./Message";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
+import { useRef } from "react";
+import moment from "moment";
 
 const ChatScreen = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
@@ -37,6 +39,7 @@ const ChatScreen = ({ chat, messages }) => {
       email: "",
       lastSeen: "",
    });
+   const endOfMessageRef = useRef(null);
 
    const getMessagesSnapshot = () => {
       const q = query(
@@ -49,7 +52,13 @@ const ChatScreen = ({ chat, messages }) => {
          const messages = [];
 
          querySnapshot.forEach((doc) => {
-            messages.push({ id: doc.id, ...doc.data() });
+            messages.push({
+               id: doc.id,
+               ...doc.data(),
+               time: moment(new Date(doc.data().timestamp.toDate())).format(
+                  "LT"
+               ),
+            });
          });
 
          setMessagesSnapshot(messages);
@@ -128,6 +137,14 @@ const ChatScreen = ({ chat, messages }) => {
       );
 
       setInput("");
+      scrollToBottom();
+   };
+
+   const scrollToBottom = () => {
+      endOfMessageRef.current.scrollIntoView({
+         behavior: "smooth",
+         block: "start",
+      });
    };
 
    return (
@@ -171,10 +188,9 @@ const ChatScreen = ({ chat, messages }) => {
          </Header>
 
          <MessageContainer>
-            {/*TODO: Messages Container */}
             {ShowMessages()}
 
-            <EndOfMessage />
+            <EndOfMessage ref={endOfMessageRef} />
          </MessageContainer>
 
          <InputContainer>

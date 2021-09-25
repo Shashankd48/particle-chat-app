@@ -13,11 +13,7 @@ const Message = ({ user, message }) => {
          <TypeOfMessage>
             {message.message}
 
-            <Timestamp>
-               {message.timestamp
-                  ? moment(new Date(message.timestamp.toDate())).format("LT")
-                  : "..."}
-            </Timestamp>
+            <Timestamp>{message.time ? message.time : "..."}</Timestamp>
          </TypeOfMessage>
       </Container>
    );

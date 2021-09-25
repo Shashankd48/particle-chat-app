@@ -25,8 +25,6 @@ export default Chat;
 export async function getServerSideProps(context) {
    const chat = await getChatById(context.query.id);
 
-   console.log("CHAT ", chat);
-
    const messages = await getMessagesByChatId(context.query.id);
 
    // console.log("log: ", messages);
