@@ -45,7 +45,7 @@ const Reciever = styled(MessageElement)`
    text-align: left;
 `;
 
-const Timestamp = styled.div`
+const Timestamp = styled.span`
    color: gray;
    padding: 10px;
    position: absolute;

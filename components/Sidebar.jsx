@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Avatar, IconButton, Button } from "@material-ui/core";
+import { Avatar, IconButton, Button } from "@mui/material";
 import {
    Chat as ChatIcon,
    MoreVert as MoreVertIcon,
    Search as SearchIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
+
 import * as EmailValidator from "email-validator";
 import { auth, db } from "../firebase";
 import {

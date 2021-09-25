@@ -1,5 +1,5 @@
-import { Avatar } from "@material-ui/core";
 import { Fragment } from "react";
+import { Avatar } from "@mui/material";
 
 import styled from "styled-components";
 

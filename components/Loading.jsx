@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { LinearProgress, withStyles } from "@material-ui/core";
+import { LinearProgress, styled } from "@mui/material";
 
-const BorderLinearProgress = withStyles(() => ({
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
    root: {
       height: 5,
       borderRadius: 5,
@@ -14,7 +14,7 @@ const BorderLinearProgress = withStyles(() => ({
       background:
          "linear-gradient(90deg,rgba(126, 56, 237, 1) 0%,rgba(200, 47, 214, 1) 100%,rgba(0, 212, 255, 1) 100%)",
    },
-}))(LinearProgress);
+}));
 
 const Loading = () => {
    return (

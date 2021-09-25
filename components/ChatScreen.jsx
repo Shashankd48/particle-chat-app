@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, IconButton } from "@mui/material";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "styled-components";
@@ -9,7 +9,7 @@ import {
    AttachFile as AttachFileIcon,
    InsertEmoticon as InsertEmoticonIcon,
    Mic as MicIcon,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import {
    doc,
    setDoc,
