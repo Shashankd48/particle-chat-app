@@ -19,7 +19,10 @@ export async function getMessagesByChatId(chatId) {
    const querySnapshot = await getDocs(q);
    let messages = [];
    querySnapshot.forEach((doc) => {
-      messages.push({ id: doc.id, ...doc.data() });
+      messages.push({
+         id: doc.id,
+         ...doc.data(),
+      });
    });
    return messages;
 }

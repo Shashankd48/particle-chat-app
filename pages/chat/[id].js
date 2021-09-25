@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
 
    const messages = await getMessagesByChatId(context.query.id);
 
-   console.log("log: ", messages);
+   // console.log("log: ", messages);
 
    return {
       props: {
