@@ -107,7 +107,6 @@ const ChatScreen = ({ chat, messages }) => {
             <Message message={message} key={message.id} user={message.user} />
          ));
       } else {
-         scrollToBottom();
          return JSON.parse(messages).map((message) => (
             <Message message={message} key={message.id} user={message.user} />
          ));
