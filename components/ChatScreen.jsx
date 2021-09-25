@@ -24,6 +24,7 @@ import {
 import { db } from "../firebase";
 import Message from "./Message";
 import getRecipientEmail from "../utils/getRecipientEmail";
+import TimeAgo from "timeago-react";
 
 const ChatScreen = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
@@ -144,7 +145,18 @@ const ChatScreen = ({ chat, messages }) => {
                <h3>
                   {recipientProfile ? recipientProfile.name : chat.users[1]}
                </h3>
-               <p>{new Date(recipientProfile.lastSeen).getHours()}</p>
+               {recipientProfile ? (
+                  <p>
+                     Last active:{" "}
+                     {recipientProfile.lastSeen ? (
+                        <TimeAgo datetime={recipientProfile.lastSeen} />
+                     ) : (
+                        "Unavailable"
+                     )}{" "}
+                  </p>
+               ) : (
+                  ""
+               )}
             </HeaderInformation>
 
             <HeaderIcons>
