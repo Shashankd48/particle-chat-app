@@ -1,24 +1,11 @@
 import { Avatar } from "@material-ui/core";
-import { Fragment, useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { Fragment } from "react";
+
 import styled from "styled-components";
-import { auth } from "../firebase";
-import { getUserByEmail } from "../functions/users";
-import getRecipientEmail from "../utils/getRecipientEmail";
-import { useCollection } from "react-firebase-hooks/firestore";
-import {
-   query,
-   collection,
-   where,
-   getDoc,
-   doc,
-   getDocs,
-} from "firebase/firestore";
-import { db } from "../firebase";
+
 import { useRouter } from "next/router";
 
 const Chat = ({ profile }) => {
-   //    const [user] = useAuthState(auth);
    const router = useRouter();
 
    const enterChat = () => {
