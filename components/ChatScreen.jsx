@@ -102,10 +102,12 @@ const ChatScreen = ({ chat, messages }) => {
 
    const ShowMessages = () => {
       if (messagesSnapshot.length > 0) {
+         scrollToBottom();
          return messagesSnapshot.map((message) => (
             <Message message={message} key={message.id} user={message.user} />
          ));
       } else {
+         scrollToBottom();
          return JSON.parse(messages).map((message) => (
             <Message message={message} key={message.id} user={message.user} />
          ));
