@@ -3,14 +3,10 @@ import Sidebar from "../../components/Sidebar";
 import ChatScreen from "../../components/ChatScreen";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-   deleteMessagesByChatId,
-   getChatById,
-   getMessagesByChatId,
-} from "../../functions/chats";
+import { getChatById, getMessagesByChatId } from "../../functions/chats";
 import Titlebar from "../../components/Titlebar";
 
-const Chat = ({ chat, messages }) => {
+const Chat = ({ chat, messages, recipientUser }) => {
    const [user] = useAuthState(auth);
    return (
       <Container>
@@ -36,7 +32,10 @@ export async function getServerSideProps(context) {
    console.log("log: ", messages);
 
    return {
-      props: { chat, messages: JSON.stringify(messages) },
+      props: {
+         chat,
+         messages: JSON.stringify(messages),
+      },
    };
 }
 

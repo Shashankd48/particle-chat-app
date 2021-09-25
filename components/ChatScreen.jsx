@@ -23,12 +23,19 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import Message from "./Message";
+import getRecipientEmail from "../utils/getRecipientEmail";
 
 const ChatScreen = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
    const router = useRouter();
    const [input, setInput] = useState("");
    const [messagesSnapshot, setMessagesSnapshot] = useState([]);
+   const [recipientProfile, setRecipientProfile] = useState({
+      name: "",
+      photoURL: "",
+      email: "",
+      lastSeen: "",
+   });
 
    const getMessagesSnapshot = () => {
       const q = query(
@@ -44,13 +51,37 @@ const ChatScreen = ({ chat, messages }) => {
             messages.push({ id: doc.id, ...doc.data() });
          });
 
-         console.log("log: Message", messages);
-
-         if (messages.length > 0) {
-            setMessagesSnapshot(messages);
-         }
+         setMessagesSnapshot(messages);
       });
    };
+
+   const getRecipientSnapsShot = (recipientEmail) => {
+      const q = query(
+         collection(db, "users"),
+         where("email", "==", recipientEmail)
+      );
+
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+         let user;
+
+         querySnapshot.forEach((doc) => {
+            user = { id: doc.id, ...doc.data() };
+         });
+
+         user = { ...user, lastSeen: user.lastSeen.toDate().getTime() };
+
+         setRecipientProfile(user);
+      });
+   };
+
+   useEffect(() => {
+      if (user && chat) {
+         const recipientEmail = getRecipientEmail(chat.users, user);
+
+         console.log("log: recipientEmail", recipientEmail);
+         getRecipientSnapsShot(recipientEmail);
+      }
+   }, [chat, user]);
 
    useEffect(() => {
       if (typeof window !== "undefined") {
@@ -101,11 +132,19 @@ const ChatScreen = ({ chat, messages }) => {
    return (
       <Container>
          <Header>
-            <Avatar alt="User's Avatar" />
+            {recipientProfile ? (
+               <Avatar alt="User's Avatar" src={recipientProfile.photoURL} />
+            ) : (
+               <Avatar alt="User's Avatar">
+                  {chat.users[1][0].toUpperCase()}
+               </Avatar>
+            )}
 
             <HeaderInformation>
-               <h3>{chat.users[1]}</h3>
-               <p>last seen...</p>
+               <h3>
+                  {recipientProfile ? recipientProfile.name : chat.users[1]}
+               </h3>
+               <p>{new Date(recipientProfile.lastSeen).getHours()}</p>
             </HeaderInformation>
 
             <HeaderIcons>
