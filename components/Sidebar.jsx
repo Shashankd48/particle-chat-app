@@ -27,7 +27,7 @@ const Sidebar = () => {
    const [chatList, setChatList] = useState([]);
    const [usersProfile, setUsersProfile] = useState([]);
    const router = useRouter();
-   const [open, setOpen] = useState(false);
+   const [open, setOpen] = useState(true);
 
    const handleClose = () => setOpen(false);
 
