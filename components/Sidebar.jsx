@@ -20,12 +20,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";
 import { getUserByEmail, getUsersByEmails } from "../functions/users";
 import { useRouter } from "next/router";
+import AddContact from "./AddContact";
 
 const Sidebar = () => {
    const [user] = useAuthState(auth);
    const [chatList, setChatList] = useState([]);
    const [usersProfile, setUsersProfile] = useState([]);
    const router = useRouter();
+   const [open, setOpen] = useState(false);
+
+   const handleClose = () => setOpen(false);
 
    const getUsersChat = (userEmail) => {
       const q = query(
@@ -172,6 +176,8 @@ const Sidebar = () => {
                />
             );
          })}
+
+         <AddContact open={open} handleClose={handleClose} />
       </Container>
    );
 };
@@ -201,8 +207,8 @@ const ActionContainer = styled.div`
 `;
 
 const Title = styled.p`
-   font-size: 16px;
-   font-weight: 500;
+   font-size: 18px;
+   font-weight: 600;
    cursor: pointer;
 `;
 
