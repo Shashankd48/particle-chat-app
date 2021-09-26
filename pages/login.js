@@ -15,7 +15,13 @@ const Login = () => {
 
          <LoginContainer>
             <ImageContainer>
-               <Image src="/logo.svg" alt="Logo" width="300" height="300" />
+               <Image
+                  src="/logo.svg"
+                  alt="Logo"
+                  width="300"
+                  height="300"
+                  priority
+               />
             </ImageContainer>
 
             <button

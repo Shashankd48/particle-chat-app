@@ -6,7 +6,6 @@ import {
    MoreVert as MoreVertIcon,
    Search as SearchIcon,
 } from "@mui/icons-material";
-
 import * as EmailValidator from "email-validator";
 import { auth, db } from "../firebase";
 import {
@@ -27,9 +26,21 @@ const Sidebar = () => {
    const [chatList, setChatList] = useState([]);
    const [usersProfile, setUsersProfile] = useState([]);
    const router = useRouter();
-   const [open, setOpen] = useState(true);
+   const [open, setOpen] = useState(false);
+   const [error, setError] = useState({
+      isError: false,
+      message: "",
+   });
 
-   const handleClose = () => setOpen(false);
+   useEffect(() => {
+      if (chatList.length > 0) {
+         getUsersAccount();
+      }
+   }, [chatList]);
+
+   useEffect(() => {
+      if (user) getUsersChat(user.email);
+   }, [user]);
 
    const getUsersChat = (userEmail) => {
       const q = query(
@@ -79,48 +90,11 @@ const Sidebar = () => {
       setUsersProfile(tempProfiles);
    };
 
-   useEffect(() => {
-      if (chatList.length > 0) {
-         getUsersAccount();
-      }
-   }, [chatList]);
+   const handleOpen = () => setOpen(true);
 
-   useEffect(() => {
-      if (user) getUsersChat(user.email);
-   }, [user]);
-
-   const createChat = async () => {
-      const input = prompt(
-         "Please enter an email address for the user you wish to chat with"
-      );
-
-      if (!input) return;
-
-      let userAccount = await getUserByEmail(input);
-      if (!userAccount) {
-         alert("User's account not found!");
-         return;
-      }
-
-      if (
-         EmailValidator.validate(input) &&
-         input !== user.email &&
-         !chatAlreadyExist(input)
-      ) {
-         // TODO: We need to add chat into DB 'chats' collection
-
-         try {
-            const docRef = await addDoc(collection(db, "chats"), {
-               users: [user.email, input],
-            });
-            console.log("Document written with ID: ", docRef.id);
-            return;
-         } catch (e) {
-            console.error("Error adding document: ", e);
-            return;
-         }
-      }
-      alert("Chat already created with this user!");
+   const handleClose = () => {
+      setOpen(false);
+      setError({ isError: false, message: "" });
    };
 
    const chatAlreadyExist = (recipientEmail) =>
@@ -129,6 +103,41 @@ const Sidebar = () => {
          : false;
 
    const logout = () => auth.signOut();
+
+   const addContact = async (email) => {
+      if (!email) {
+         setError({ isError: true, message: "Please enter you email!" });
+         return;
+      }
+
+      let userAccount = await getUserByEmail(email);
+
+      if (!userAccount) {
+         setError({ isError: true, message: "User's account not found!" });
+         return;
+      }
+
+      if (
+         EmailValidator.validate(email) &&
+         email !== user.email &&
+         !chatAlreadyExist(email)
+      ) {
+         try {
+            const docRef = await addDoc(collection(db, "chats"), {
+               users: [user.email, email],
+            });
+            setOpen(false);
+            return;
+         } catch (e) {
+            setError({ isError: true, message: "Failed to add contact!" });
+            return;
+         }
+      }
+      setError({
+         isError: true,
+         message: "Chat already created with this user!",
+      });
+   };
 
    return (
       <Container>
@@ -159,7 +168,7 @@ const Sidebar = () => {
 
          <ActionContainer>
             <SidebarButton
-               onClick={createChat}
+               onClick={handleOpen}
                color="primary"
                variant="contained"
             >
@@ -177,7 +186,12 @@ const Sidebar = () => {
             );
          })}
 
-         <AddContact open={open} handleClose={handleClose} />
+         <AddContact
+            open={open}
+            error={error}
+            onClose={handleClose}
+            addContact={addContact}
+         />
       </Container>
    );
 };

@@ -17,6 +17,7 @@ export default function Home() {
                   width={400}
                   height={400}
                   alt="Undraw Messaging"
+                  priority
                />
             </ImageContainer>
             <TextContainer>

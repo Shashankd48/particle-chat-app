@@ -26,7 +26,13 @@ const Loading = () => {
          }}
       >
          <div>
-            <Image src="/logo.svg" alt="Logo" height={300} width={300} />
+            <Image
+               src="/logo.svg"
+               alt="Logo"
+               height={300}
+               width={300}
+               priority
+            />
 
             <BorderLinearProgress />
          </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
    Box,
    Button,
@@ -7,52 +7,65 @@ import {
    DialogTitle,
    DialogContent,
    Grid,
-   colors,
    useMediaQuery,
+   Alert,
 } from "@mui/material";
 import Image from "next/image";
 import DialogContentText from "@mui/material/DialogContentText";
+import WidgetLoading from "./WidgetLoading";
 
-const AddContact = ({ open, handleClose, title }) => {
+const AddContact = ({ open, onClose, error, addContact }) => {
    const [email, setEmail] = useState("");
    const matches = useMediaQuery("(max-width:600px)");
-
-   console.log("log: matches", matches);
+   const [isLoading, setIsLoading] = useState(false);
 
    const handleChange = (e) => {
       setEmail(e.target.value);
    };
 
-   return (
-      <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth="sm">
-         <DialogTitle>Add Contact</DialogTitle>
-         <DialogContent>
-            <DialogContentText>
-               To subscribe to this website, please enter your gmail account.
-            </DialogContentText>
-            <Box sx={{ mt: 3 }}>
-               <Grid container spacing="2">
-                  <Grid item xs={12} sm={6} md={6}>
-                     <Box
-                        sx={{
-                           textAlign: "center",
-                        }}
-                     >
-                        <Image
-                           src="/add-user.svg"
-                           alt="Add new user"
-                           width={matches ? 250 : 200}
-                           height={matches ? 250 : 200}
-                        />
-                     </Box>
-                  </Grid>
-                  <Grid item md={6} sm={6} xs={12}>
-                     <Box
-                        sx={{
-                           pt: 3,
-                           height: "100%",
-                        }}
-                     >
+   const createChat = async () => {
+      setIsLoading(true);
+      await addContact(email);
+      setIsLoading(false);
+      setEmail("");
+   };
+
+   const AlertContainer = () => {
+      return (
+         <Box sx={{ mt: 0 }}>
+            <Alert severity="error">{error.message}</Alert>
+         </Box>
+      );
+   };
+
+   const MainContent = () => {
+      return (
+         <Grid container spacing="2">
+            <Grid item xs={12} sm={6} md={6}>
+               <Box
+                  sx={{
+                     textAlign: "center",
+                  }}
+               >
+                  <Image
+                     src="/add-user.svg"
+                     alt="Add new user"
+                     width={matches ? 250 : 200}
+                     height={matches ? 250 : 200}
+                  />
+               </Box>
+            </Grid>
+            <Grid item md={6} sm={6} xs={12}>
+               <Box
+                  sx={{
+                     pt: matches ? 0 : 3,
+                     height: "100%",
+                  }}
+               >
+                  {isLoading ? (
+                     <WidgetLoading />
+                  ) : (
+                     <Fragment>
                         <TextField
                            autoFocus
                            margin="dense"
@@ -65,26 +78,47 @@ const AddContact = ({ open, handleClose, title }) => {
                            onChange={handleChange}
                         />
 
-                        <Box sx={{ pt: 3, textAlign: "right" }}>
-                           <Button
-                              variant="contained"
-                              // size="small"
-                           >
-                              Continue
-                           </Button>
+                        <Box
+                           sx={{
+                              pt: 4,
+                              display: "flex",
+                              justifyContent: "flex-end",
+                           }}
+                        >
+                           <Box sx={{ mr: 3 }}>
+                              <Button variant="outlined" onClick={onClose}>
+                                 Cancel
+                              </Button>
+                           </Box>
+                           <Box>
+                              <Button variant="contained" onClick={createChat}>
+                                 Continue
+                              </Button>
+                           </Box>
                         </Box>
-                     </Box>
-                  </Grid>
-               </Grid>
+                     </Fragment>
+                  )}
+               </Box>
+            </Grid>
+         </Grid>
+      );
+   };
+
+   return (
+      <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth="sm">
+         <DialogTitle>Add Contact</DialogTitle>
+         <DialogContent>
+            <DialogContentText>
+               To subscribe to this website, please enter your gmail account.
+            </DialogContentText>
+            <Box sx={{ mt: 3 }}>
+               {MainContent()}
+
+               {error.isError && <AlertContainer />}
             </Box>
          </DialogContent>
       </Dialog>
    );
 };
-
-// <DialogActions>
-//             <Button onClick={handleClose}>Cancel</Button>
-//             <Button onClick={handleClose}>Subscribe</Button>
-//          </DialogActions>
 
 export default AddContact;
