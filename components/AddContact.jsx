@@ -30,6 +30,8 @@ const AddContact = ({ open, onClose, error, addContact }) => {
       setEmail("");
    };
 
+   console.log("Hello");
+
    const AlertContainer = () => {
       return (
          <Box sx={{ mt: 0 }}>
