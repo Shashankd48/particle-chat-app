@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, Fragment } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import MuiAppBar from "@mui/material/AppBar";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import Sidebar from "./Sidebar";
 import SidebarHeader from "./SidebarHeader";
 import { useMediaQuery } from "@mui/material";
+import { DrawerContext } from "../contexts/DrawerContextProvider";
+import { CLOSE, TOGGLE } from "../actions/drawerActions";
 
-const drawerWidth = 300;
+const drawerWidth = 320;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
    ({ theme, open }) => ({
@@ -33,41 +31,20 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
    })
 );
 
-const AppBar = styled(MuiAppBar, {
-   shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-   transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-   }),
-   ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(["margin", "width"], {
-         easing: theme.transitions.easing.easeOut,
-         duration: theme.transitions.duration.enteringScreen,
-      }),
-   }),
-}));
-
 const DrawerHeader = styled("div")(({ theme }) => ({}));
 
 export default function NewSidebar({ children }) {
    const matches = useMediaQuery("(max-width:758px)");
-   const theme = useTheme();
-   const [open, setOpen] = useState(window.innerWidth < 758 ? false : true);
+   const { drawer, dispatch } = useContext(DrawerContext);
 
    useEffect(() => {
-      setOpen(!matches);
+      dispatch({
+         type: TOGGLE,
+         payload: {
+            isOpen: !matches,
+         },
+      });
    }, [matches]);
-
-   const handleDrawerOpen = () => {
-      setOpen(true);
-   };
-
-   const handleDrawerClose = () => {
-      setOpen(false);
-   };
 
    return (
       <Box sx={{ display: "flex", zIndex: -10 }}>
@@ -80,24 +57,21 @@ export default function NewSidebar({ children }) {
                   boxSizing: "border-box",
                },
             }}
-            variant="persistent"
+            variant="permanent"
             anchor="left"
-            open={open}
+            open={drawer.isOpen}
          >
             <div>
                <SidebarHeader />
-               <IconButton onClick={handleDrawerClose}>
-                  {theme.direction === "ltr" ? (
-                     <ChevronLeftIcon />
-                  ) : (
-                     <ChevronRightIcon />
-                  )}
-               </IconButton>
             </div>
-            <Divider />
-            <Sidebar />
+            {drawer.isOpen && (
+               <Fragment>
+                  <Divider />
+                  <Sidebar />
+               </Fragment>
+            )}
          </Drawer>
-         <Main open={open}>{children}</Main>
+         <Main open={drawer.isOpen}>{children}</Main>
       </Box>
    );
 }

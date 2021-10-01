@@ -1,11 +1,11 @@
 import { createContext, useReducer, useEffect } from "react";
-import { drawerReducer } from "../reducers/DrawerReducer";
+import { drawerReducer } from "../reducers/drawerReducer";
 
 export const DrawerContext = createContext();
 
 const DrawerContextProvider = ({ children }) => {
    const [drawer, dispatch] = useReducer(drawerReducer, {
-      open: window.innerWidth < 758 ? false : true,
+      isOpen: window.innerWidth < 758 ? false : true,
    });
 
    return (

@@ -9,6 +9,7 @@ import {
    AttachFile as AttachFileIcon,
    InsertEmoticon as InsertEmoticonIcon,
    Mic as MicIcon,
+   Menu as MenuIcon,
 } from "@mui/icons-material";
 import {
    doc,
@@ -25,8 +26,10 @@ import { db } from "../firebase";
 import Message from "./Message";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import moment from "moment";
+import { DrawerContext } from "../contexts/DrawerContextProvider";
+import { OPEN } from "../actions/drawerActions";
 
 const ChatScreen = ({ chat, messages }) => {
    const [user] = useAuthState(auth);
@@ -40,6 +43,11 @@ const ChatScreen = ({ chat, messages }) => {
       lastSeen: "",
    });
    const endOfMessageRef = useRef(null);
+   const { drawer, dispatch } = useContext(DrawerContext);
+
+   const handleDrawerOpen = () => {
+      dispatch({ type: OPEN });
+   };
 
    const getMessagesSnapshot = () => {
       const q = query(
@@ -178,13 +186,11 @@ const ChatScreen = ({ chat, messages }) => {
             </HeaderInformation>
 
             <HeaderIcons>
-               <IconButton>
-                  <AttachFileIcon />
-               </IconButton>
-
-               <IconButton>
-                  <MoreVertIcon />
-               </IconButton>
+               {!drawer.isOpen && (
+                  <IconButton onClick={handleDrawerOpen}>
+                     <MenuIcon />
+                  </IconButton>
+               )}
             </HeaderIcons>
          </Header>
 

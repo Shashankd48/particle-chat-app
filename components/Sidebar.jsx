@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Avatar, IconButton, Button } from "@mui/material";
-import {
-   Chat as ChatIcon,
-   MoreVert as MoreVertIcon,
-   Search as SearchIcon,
-} from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { Search as SearchIcon } from "@mui/icons-material";
 import * as EmailValidator from "email-validator";
 import { auth, db } from "../firebase";
 import {
@@ -25,7 +21,6 @@ const Sidebar = () => {
    const [user] = useAuthState(auth);
    const [chatList, setChatList] = useState([]);
    const [usersProfile, setUsersProfile] = useState([]);
-   const router = useRouter();
    const [open, setOpen] = useState(false);
    const [error, setError] = useState({
       isError: false,
@@ -102,8 +97,6 @@ const Sidebar = () => {
          ? true
          : false;
 
-   const logout = () => auth.signOut();
-
    const addContact = async (email) => {
       if (!email) {
          setError({ isError: true, message: "Please enter you email!" });
@@ -141,30 +134,6 @@ const Sidebar = () => {
 
    return (
       <Container>
-         {/*
-
-            <Header>
-            <UserAvatar
-               onClick={logout}
-               src={user.photoURL}
-               alt="Contact picture"
-            />
-
-            <Title onClick={() => router.push("/")}>{user.displayName}</Title>
-
-            <IconsContainer>
-               <IconButton>
-                  <ChatIcon />
-               </IconButton>
-
-               <IconButton>
-                  <MoreVertIcon />
-               </IconButton>
-            </IconsContainer>
-         </Header>
-            
-            */}
-
          <Search>
             <SearchIcon />
             <SearchInput placeholder="Search in chats" />
@@ -224,40 +193,12 @@ const ActionContainer = styled.div`
    padding: 20px 0;
 `;
 
-const Title = styled.p`
-   font-size: 18px;
-   font-weight: 600;
-   cursor: pointer;
-`;
-
-const Header = styled.div`
-   display: flex;
-   position: sticky;
-   top: 0;
-   background-color: #fff;
-   z-index: 10;
-   justify-content: space-between;
-   align-items: center;
-   padding: 15px;
-   height: 80px;
-   border-bottom: 3px solid whitesmoke;
-`;
-
-const UserAvatar = styled(Avatar)`
-   cursor: pointer;
-   :hover {
-      opacity: 0.8;
-   }
-`;
-
 const Search = styled.div`
    display: flex;
    align-items: center;
    padding: 5px;
    border-radius: 2px;
 `;
-
-const IconsContainer = styled.div``;
 
 const SearchInput = styled.input`
    outline-width: 0;

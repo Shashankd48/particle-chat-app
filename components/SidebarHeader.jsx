@@ -1,35 +1,42 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Avatar, IconButton, Button } from "@mui/material";
+import { Avatar, IconButton } from "@mui/material";
 import {
    Chat as ChatIcon,
-   MoreVert as MoreVertIcon,
+   ChevronLeft as ChevronLeftIcon,
 } from "@mui/icons-material";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useContext } from "react";
+import { DrawerContext } from "../contexts/DrawerContextProvider";
+import { CLOSE } from "../actions/drawerActions";
+import Sidebar from "./Sidebar";
 
 const SidebarHeader = () => {
    const router = useRouter();
    const logout = () => auth.signOut();
    const [user] = useAuthState(auth);
+   const { dispatch } = useContext(DrawerContext);
+
+   const handleDrawerClose = () => {
+      dispatch({ type: CLOSE });
+   };
 
    return (
       <Header>
          <UserAvatar
             onClick={logout}
-            src={user?.photoURL}
+            src={user ? user.photoURL : ""}
             alt="Contact picture"
          />
-
          <Title onClick={() => router.push("/")}>{user.displayName}</Title>
-
          <IconsContainer>
             <IconButton>
                <ChatIcon />
             </IconButton>
 
-            <IconButton>
-               <MoreVertIcon />
+            <IconButton onClick={handleDrawerClose}>
+               <ChevronLeftIcon />
             </IconButton>
          </IconsContainer>
       </Header>

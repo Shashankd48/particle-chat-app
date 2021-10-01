@@ -3,27 +3,32 @@ import styled from "styled-components";
 import Image from "next/image";
 import Titlebar from "../components/Titlebar";
 import NewSidebar from "../components/NewSidebar";
+import Appbar from "../components/Appbar";
 
 export default function Home() {
    const MainContent = () => {
       return (
-         <RightSection>
-            <ImageContainer>
-               <Image
-                  src="/undraw_Messaging.svg"
-                  width={400}
-                  height={400}
-                  alt="Undraw Messaging"
-                  priority
-               />
-            </ImageContainer>
-            <TextContainer>
-               <Heading>Start new Conversation</Heading>
-               <Subtitle>
-                  Add your friends with their gmail account to start chatting!
-               </Subtitle>
-            </TextContainer>
-         </RightSection>
+         <Container>
+            <Appbar />
+            <RightSection>
+               <ImageContainer>
+                  <Image
+                     src="/undraw_Messaging.svg"
+                     width={400}
+                     height={400}
+                     alt="Undraw Messaging"
+                     priority
+                  />
+               </ImageContainer>
+               <TextContainer>
+                  <Heading>Start new Conversation</Heading>
+                  <Subtitle>
+                     Add your friends with their gmail account to start
+                     chatting!
+                  </Subtitle>
+               </TextContainer>
+            </RightSection>
+         </Container>
       );
    };
 
@@ -61,7 +66,7 @@ export default function Home() {
 }
 
 const Container = styled.div`
-   display: flex;
+   /* display: flex; */
 `;
 
 const RightSection = styled.div`
@@ -70,7 +75,7 @@ const RightSection = styled.div`
    align-items: center;
    display: flex;
    flex-direction: column;
-   height: 100vh;
+   height: calc(100vh - 88px);
    background-color: whitesmoke;
 `;
 
