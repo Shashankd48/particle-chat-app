@@ -2,8 +2,37 @@ import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import Image from "next/image";
 import Titlebar from "../components/Titlebar";
+import NewSidebar from "../components/NewSidebar";
 
 export default function Home() {
+   const MainContent = () => {
+      return (
+         <RightSection>
+            <ImageContainer>
+               <Image
+                  src="/undraw_Messaging.svg"
+                  width={400}
+                  height={400}
+                  alt="Undraw Messaging"
+                  priority
+               />
+            </ImageContainer>
+            <TextContainer>
+               <Heading>Start new Conversation</Heading>
+               <Subtitle>
+                  Add your friends with their gmail account to start chatting!
+               </Subtitle>
+            </TextContainer>
+         </RightSection>
+      );
+   };
+
+   return (
+      <NewSidebar>
+         <MainContent />
+      </NewSidebar>
+   );
+
    return (
       <Container>
          <Titlebar title="Contacts | Particle-Chat" />

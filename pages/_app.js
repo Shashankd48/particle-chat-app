@@ -8,6 +8,7 @@ import { setDoc, Timestamp, doc } from "firebase/firestore";
 import NProgress from "nprogress";
 import Router from "next/router";
 import "nprogress/nprogress.css";
+import DrawerContextProvider from "../contexts/DrawerContextProvider";
 
 NProgress.configure({
    minimum: 0.3,
@@ -52,7 +53,11 @@ function MyApp({ Component, pageProps }) {
 
    if (!user) return <Login />;
 
-   return <Component {...pageProps} />;
+   return (
+      <DrawerContextProvider>
+         <Component {...pageProps} />
+      </DrawerContextProvider>
+   );
 }
 
 export default MyApp;

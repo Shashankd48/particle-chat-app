@@ -141,7 +141,9 @@ const Sidebar = () => {
 
    return (
       <Container>
-         <Header>
+         {/*
+
+            <Header>
             <UserAvatar
                onClick={logout}
                src={user.photoURL}
@@ -160,6 +162,8 @@ const Sidebar = () => {
                </IconButton>
             </IconsContainer>
          </Header>
+            
+            */}
 
          <Search>
             <SearchIcon />

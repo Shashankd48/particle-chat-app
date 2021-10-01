@@ -110,3 +110,8 @@ a {
 .btn-8:active {
    top: 2px;
 }
+
+.MuiPaper-root {
+   height: fit-content;
+   z-index: 0;
+}
