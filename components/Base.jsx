@@ -53,8 +53,8 @@ export default function Base({ children }) {
                "& .MuiDrawer-paper": {
                   width: drawerWidth,
                   boxSizing: "border-box",
-                  height: "fit-content",
-                  zIndex: -10,
+                  height: "100%",
+                  zIndex: 0,
                },
             }}
             variant="permanent"
