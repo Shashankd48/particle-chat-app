@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { Button } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 import * as EmailValidator from "email-validator";
 import { auth, db } from "../firebase";
@@ -14,7 +13,6 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";
 import { getUserByEmail, getUsersByEmails } from "../functions/users";
-import { useRouter } from "next/router";
 import AddContact from "./AddContact";
 
 const Sidebar = () => {
@@ -85,7 +83,9 @@ const Sidebar = () => {
       setUsersProfile(tempProfiles);
    };
 
-   const handleOpen = () => setOpen(true);
+   const handleOpen = () => {
+      setOpen(true);
+   };
 
    const handleClose = () => {
       setOpen(false);
@@ -150,7 +150,7 @@ const Sidebar = () => {
             </button>
          </ActionContainer>
 
-         {usersProfile.map((profile, index) => {
+         {usersProfile.map((profile) => {
             return (
                <Chat
                   profile={profile}
