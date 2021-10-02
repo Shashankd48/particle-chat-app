@@ -251,7 +251,7 @@ const InputContainer = styled.form`
    position: sticky;
    bottom: 0;
    background-color: whitesmoke;
-   z-index: 100;
+   /* z-index: 100; */
 `;
 
 const Header = styled.div`

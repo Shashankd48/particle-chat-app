@@ -160,6 +160,16 @@ const Sidebar = () => {
             );
          })}
 
+         {usersProfile.map((profile, index) => {
+            return (
+               <Chat
+                  profile={profile}
+                  key={profile.chatId}
+                  id={profile.chatId}
+               />
+            );
+         })}
+
          <AddContact
             open={open}
             error={error}
@@ -173,7 +183,8 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Container = styled.div`
-   height: 100vh;
+   height: calc(100vh - 80px);
+   max-height: calc(100vh - 80px);
    max-width: 320px;
    min-width: 290px;
    border-right: 2px solid whitesmoke;
@@ -208,8 +219,4 @@ const SearchInput = styled.input`
    margin-left: 5px;
    padding: 15px 10px;
    border: 2px solid whitesmoke;
-`;
-
-const SidebarButton = styled(Button)`
-   width: 92%;
 `;

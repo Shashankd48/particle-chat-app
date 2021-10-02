@@ -61,11 +61,11 @@ export default function Base({ children }) {
             anchor="left"
             open={drawer.isOpen}
          >
-            <DrawerHeader>
-               <SidebarHeader />
-            </DrawerHeader>
             {drawer.isOpen && (
                <Fragment>
+                  <DrawerHeader>
+                     <SidebarHeader />
+                  </DrawerHeader>
                   <Divider />
                   <Sidebar />
                </Fragment>
