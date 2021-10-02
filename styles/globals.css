@@ -35,6 +35,7 @@ a {
    text-transform: uppercase;
    letter-spacing: 1px;
 }
+
 /* 8 */
 .btn-8 {
    background: rgb(126, 56, 237);
@@ -109,6 +110,11 @@ a {
 }
 .btn-8:active {
    top: 2px;
+}
+
+.btn-9 {
+   background: transparent;
+   color: rgba(126, 56, 237, 1);
 }
 
 .MuiPaper-root {

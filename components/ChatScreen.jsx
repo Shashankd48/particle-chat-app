@@ -5,8 +5,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "styled-components";
 import { auth } from "../firebase";
 import {
-   MoreVert as MoreVertIcon,
-   AttachFile as AttachFileIcon,
    InsertEmoticon as InsertEmoticonIcon,
    Mic as MicIcon,
    Menu as MenuIcon,

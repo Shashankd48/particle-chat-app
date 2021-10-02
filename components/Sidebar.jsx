@@ -140,13 +140,14 @@ const Sidebar = () => {
          </Search>
 
          <ActionContainer>
-            <SidebarButton
+            <button
+               className="custom-btn btn-8"
                onClick={handleOpen}
-               color="primary"
-               variant="contained"
+               name="Sign In"
+               style={{ width: 280 }}
             >
-               Start a new chat
-            </SidebarButton>
+               <span>Start a new chat</span>
+            </button>
          </ActionContainer>
 
          {usersProfile.map((profile, index) => {

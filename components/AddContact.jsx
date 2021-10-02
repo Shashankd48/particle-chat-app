@@ -88,14 +88,24 @@ const AddContact = ({ open, onClose, error, addContact }) => {
                            }}
                         >
                            <Box sx={{ mr: 3 }}>
-                              <Button variant="outlined" onClick={onClose}>
-                                 Cancel
-                              </Button>
+                              <button
+                                 className="custom-btn btn-8 btn-9"
+                                 onClick={onClose}
+                                 name="Cancel"
+                                 style={{ width: 100 }}
+                              >
+                                 <span>Cancel</span>
+                              </button>
                            </Box>
                            <Box>
-                              <Button variant="contained" onClick={createChat}>
-                                 Continue
-                              </Button>
+                              <button
+                                 className="custom-btn btn-8"
+                                 onClick={createChat}
+                                 name="Continue"
+                                 style={{ width: 120 }}
+                              >
+                                 <span>Continue</span>
+                              </button>
                            </Box>
                         </Box>
                      </Fragment>

@@ -2,8 +2,12 @@ import styled from "styled-components";
 import Image from "next/image";
 import Appbar from "../components/Appbar";
 import Base from "../components/Base";
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Home() {
+   const [user] = useAuthState(auth);
+
    const MainContent = () => {
       return (
          <Container>
@@ -19,9 +23,10 @@ export default function Home() {
                   />
                </ImageContainer>
                <TextContainer>
-                  <Heading>Start new Conversation</Heading>
+                  <Heading>Welcome! Back</Heading>
+                  <NameTitle>{user && user.displayName}</NameTitle>
                   <Subtitle>
-                     Add your friends with their gmail account to start
+                     Add your friends with their gmail account and start
                      chatting!
                   </Subtitle>
                </TextContainer>
@@ -53,9 +58,22 @@ const TextContainer = styled.div`
 
 const Heading = styled.h1`
    margin-bottom: 0;
+
+   font-size: 3rem;
+`;
+
+const NameTitle = styled.p`
+   margin: 0;
+   font-size: 2.4rem;
+   font-weight: 700;
+   background: -webkit-linear-gradient(#573dfa, #d62dd1);
+   background-clip: text;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
 `;
 
 const Subtitle = styled.p`
    color: #000000a1;
    font-size: 1.2rem;
+   font-weight: 500;
 `;

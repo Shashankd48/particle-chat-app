@@ -4,6 +4,7 @@ import { IconButton } from "@mui/material";
 import { useContext } from "react";
 import { DrawerContext } from "../contexts/DrawerContextProvider";
 import { OPEN } from "../actions/drawerActions";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Appbar = () => {
    const { drawer, dispatch } = useContext(DrawerContext);
@@ -19,6 +20,8 @@ const Appbar = () => {
                <MenuIcon />
             </IconButton>
          )}
+
+         <Title>Particle Chat</Title>
       </Container>
    );
 };
@@ -36,4 +39,13 @@ const Container = styled.div`
    height: 80px;
    align-items: center;
    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.div`
+   font-size: 1.6rem;
+   font-weight: 700;
+   background: -webkit-linear-gradient(#573dfa, #d62dd1);
+   background-clip: text;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
 `;
