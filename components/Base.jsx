@@ -1,21 +1,19 @@
-import { useEffect, useState, useContext, Fragment } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { useEffect, useContext, Fragment } from "react";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
-
 import Sidebar from "./Sidebar";
 import SidebarHeader from "./SidebarHeader";
 import { useMediaQuery } from "@mui/material";
 import { DrawerContext } from "../contexts/DrawerContextProvider";
-import { CLOSE, TOGGLE } from "../actions/drawerActions";
+import { TOGGLE } from "../actions/drawerActions";
 
 const drawerWidth = 320;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
    ({ theme, open }) => ({
       flexGrow: 1,
-      //   padding: theme.spacing(3),
       transition: theme.transitions.create("margin", {
          easing: theme.transitions.easing.sharp,
          duration: theme.transitions.duration.leavingScreen,
@@ -33,7 +31,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 
 const DrawerHeader = styled("div")(({ theme }) => ({}));
 
-export default function NewSidebar({ children }) {
+export default function Base({ children }) {
    const matches = useMediaQuery("(max-width:758px)");
    const { drawer, dispatch } = useContext(DrawerContext);
 
@@ -63,9 +61,9 @@ export default function NewSidebar({ children }) {
             anchor="left"
             open={drawer.isOpen}
          >
-            <div>
+            <DrawerHeader>
                <SidebarHeader />
-            </div>
+            </DrawerHeader>
             {drawer.isOpen && (
                <Fragment>
                   <Divider />

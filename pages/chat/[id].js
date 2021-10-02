@@ -1,16 +1,11 @@
 import styled from "styled-components";
-import Sidebar from "../../components/Sidebar";
 import ChatScreen from "../../components/ChatScreen";
-import { auth } from "../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { getChatById, getMessagesByChatId } from "../../functions/chats";
 import Titlebar from "../../components/Titlebar";
-import NewSidebar from "../../components/NewSidebar";
+import Base from "../../components/Base";
 import { Fragment } from "react";
 
-const Chat = ({ chat, messages, recipientUser }) => {
-   const [user] = useAuthState(auth);
-
+const Chat = ({ chat, messages }) => {
    const MainContent = () => {
       return (
          <Fragment>
@@ -23,19 +18,7 @@ const Chat = ({ chat, messages, recipientUser }) => {
       );
    };
 
-   return <NewSidebar> {MainContent()} </NewSidebar>;
-
-   return (
-      <Container>
-         <Titlebar title={`Chat with ${chat.users[1]}`} />
-
-         <Sidebar />
-
-         <ChatContainer>
-            <ChatScreen chat={chat} messages={messages} />
-         </ChatContainer>
-      </Container>
-   );
+   return <Base> {MainContent()} </Base>;
 };
 export default Chat;
 
@@ -51,10 +34,6 @@ export async function getServerSideProps(context) {
       },
    };
 }
-
-const Container = styled.div`
-   display: flex;
-`;
 
 const ChatContainer = styled.div`
    flex: 1;

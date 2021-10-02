@@ -1,9 +1,7 @@
-import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import Image from "next/image";
-import Titlebar from "../components/Titlebar";
-import NewSidebar from "../components/NewSidebar";
 import Appbar from "../components/Appbar";
+import Base from "../components/Base";
 
 export default function Home() {
    const MainContent = () => {
@@ -32,42 +30,10 @@ export default function Home() {
       );
    };
 
-   return (
-      <NewSidebar>
-         <MainContent />
-      </NewSidebar>
-   );
-
-   return (
-      <Container>
-         <Titlebar title="Contacts | Particle-Chat" />
-
-         <Sidebar />
-
-         <RightSection>
-            <ImageContainer>
-               <Image
-                  src="/undraw_Messaging.svg"
-                  width={400}
-                  height={400}
-                  alt="Undraw Messaging"
-                  priority
-               />
-            </ImageContainer>
-            <TextContainer>
-               <Heading>Start new Conversation</Heading>
-               <Subtitle>
-                  Add your friends with their gmail account to start chatting!
-               </Subtitle>
-            </TextContainer>
-         </RightSection>
-      </Container>
-   );
+   return <Base>{MainContent()}</Base>;
 }
 
-const Container = styled.div`
-   /* display: flex; */
-`;
+const Container = styled.div``;
 
 const RightSection = styled.div`
    flex: 1;
