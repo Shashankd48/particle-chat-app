@@ -108,7 +108,7 @@ const ChatScreen = ({ chat, messages }) => {
 
    const ShowMessages = () => {
       if (messagesSnapshot.length > 0) {
-         if (messagesSnapshot.length > 10) scrollToBottom();
+         scrollToBottom();
 
          return messagesSnapshot.map((message) => (
             <Message message={message} key={message.id} user={message.user} />
