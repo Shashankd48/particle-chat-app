@@ -134,6 +134,9 @@ const ChatScreen = ({ chat, messages }) => {
          message: input,
       });
 
+      setInput("");
+      scrollToBottom();
+
       // update user lastSeen
       await setDoc(
          doc(db, "users", user.uid),
@@ -144,16 +147,14 @@ const ChatScreen = ({ chat, messages }) => {
             merge: true,
          }
       );
-
-      setInput("");
-      scrollToBottom();
    };
 
    const scrollToBottom = () => {
-      endOfMessageRef.current.scrollIntoView({
-         behavior: "smooth",
-         block: "start",
-      });
+      if (messagesSnapshot.length > 10)
+         endOfMessageRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+         });
    };
 
    return (
