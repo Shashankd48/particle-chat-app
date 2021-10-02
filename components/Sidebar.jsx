@@ -160,16 +160,6 @@ const Sidebar = () => {
             );
          })}
 
-         {usersProfile.map((profile, index) => {
-            return (
-               <Chat
-                  profile={profile}
-                  key={profile.chatId}
-                  id={profile.chatId}
-               />
-            );
-         })}
-
          <AddContact
             open={open}
             error={error}

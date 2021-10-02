@@ -4,13 +4,13 @@ import { Avatar, IconButton } from "@mui/material";
 import {
    Chat as ChatIcon,
    ChevronLeft as ChevronLeftIcon,
+   Logout as LogoutIcon,
 } from "@mui/icons-material";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Fragment, useContext } from "react";
 import { DrawerContext } from "../contexts/DrawerContextProvider";
 import { CLOSE } from "../actions/drawerActions";
-import Sidebar from "./Sidebar";
 
 const SidebarHeader = () => {
    const router = useRouter();
@@ -26,11 +26,7 @@ const SidebarHeader = () => {
       <Header>
          {user && (
             <Fragment>
-               <UserAvatar
-                  onClick={logout}
-                  src={user.photoURL}
-                  alt="Contact picture"
-               />
+               <UserAvatar src={user.photoURL} alt="Contact picture" />
                <Title onClick={() => router.push("/")}>
                   {user.displayName}
                </Title>
@@ -38,12 +34,12 @@ const SidebarHeader = () => {
          )}
 
          <IconsContainer>
-            <IconButton>
-               <ChatIcon />
+            <IconButton onClick={logout}>
+               <LogoutIcon sx={{ fontSize: 22 }} />
             </IconButton>
 
             <IconButton onClick={handleDrawerClose}>
-               <ChevronLeftIcon />
+               <ChevronLeftIcon sx={{ fontSize: 28 }} />
             </IconButton>
          </IconsContainer>
       </Header>

@@ -3,10 +3,15 @@ import { auth, provider } from "../firebase";
 import { signInWithPopup } from "@firebase/auth";
 import Image from "next/image";
 import Titlebar from "../components/Titlebar";
+import router from "next/router";
 
 const Login = () => {
    const signIn = () => {
-      signInWithPopup(auth, provider).catch(alert);
+      signInWithPopup(auth, provider)
+         .then(() => {
+            router.push("/");
+         })
+         .catch(alert);
    };
 
    return (

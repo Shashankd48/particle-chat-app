@@ -188,7 +188,7 @@ const ChatScreen = ({ chat, messages }) => {
             <HeaderIcons>
                {!drawer.isOpen && (
                   <IconButton onClick={handleDrawerOpen}>
-                     <MenuIcon />
+                     <MenuIcon sx={{ fontSize: 30, color: "#000" }} />
                   </IconButton>
                )}
             </HeaderIcons>
