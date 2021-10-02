@@ -55,6 +55,8 @@ export default function NewSidebar({ children }) {
                "& .MuiDrawer-paper": {
                   width: drawerWidth,
                   boxSizing: "border-box",
+                  height: "fit-content",
+                  zIndex: 0,
                },
             }}
             variant="permanent"

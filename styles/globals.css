@@ -112,6 +112,6 @@ a {
 }
 
 .MuiPaper-root {
-   height: fit-content;
-   z-index: 0;
+   height: fit-content !important;
+   z-index: 0 !important;
 }
