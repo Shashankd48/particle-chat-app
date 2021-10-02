@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import { DrawerContext } from "../contexts/DrawerContextProvider";
 import { CLOSE } from "../actions/drawerActions";
 import Sidebar from "./Sidebar";
@@ -24,12 +24,19 @@ const SidebarHeader = () => {
 
    return (
       <Header>
-         <UserAvatar
-            onClick={logout}
-            src={user ? user.photoURL : ""}
-            alt="Contact picture"
-         />
-         <Title onClick={() => router.push("/")}>{user.displayName}</Title>
+         {user && (
+            <Fragment>
+               <UserAvatar
+                  onClick={logout}
+                  src={user.photoURL}
+                  alt="Contact picture"
+               />
+               <Title onClick={() => router.push("/")}>
+                  {user.displayName}
+               </Title>
+            </Fragment>
+         )}
+
          <IconsContainer>
             <IconButton>
                <ChatIcon />

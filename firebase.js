@@ -12,11 +12,10 @@ const firebaseConfig = {
    measurementId: "G-30RHLZGEMW",
 };
 
-console.log("api", process.env.APIKEY);
-
 // const firebaseConfig = {
-//    apiKey: process.env.APIKEY,
-//    authDomain: process.env.AUTH_DOMAIN,
+//    apiKey: process.env.APIKEY || "AIzaSyDqlT3CMYN10P0oUhU9bNY2VotKWW_tNNs",
+//    authDomain:
+//       process.env.AUTH_DOMAIN || "whatsapp-next-v2-5a63e.firebaseapp.com",
 //    projectId: process.env.PROJECT_ID,
 //    storageBucket: process.env.STORAGE_BUCKET,
 //    messagingSenderId: process.env.MESSAGING_SENDER_Id,
