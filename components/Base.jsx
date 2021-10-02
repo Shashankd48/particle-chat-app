@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 import SidebarHeader from "./SidebarHeader";
 import { useMediaQuery } from "@mui/material";
 import { DrawerContext } from "../contexts/DrawerContextProvider";
-import { TOGGLE } from "../actions/drawerActions";
+import { CLOSE, TOGGLE } from "../actions/drawerActions";
 
 const drawerWidth = 320;
 
@@ -45,7 +45,7 @@ export default function Base({ children }) {
    }, [matches]);
 
    return (
-      <Box sx={{ display: "flex", zIndex: -10 }}>
+      <Box sx={{ display: "flex" }}>
          <Drawer
             sx={{
                width: drawerWidth,
@@ -54,7 +54,7 @@ export default function Base({ children }) {
                   width: drawerWidth,
                   boxSizing: "border-box",
                   height: "fit-content",
-                  zIndex: 0,
+                  zIndex: -10,
                },
             }}
             variant="permanent"

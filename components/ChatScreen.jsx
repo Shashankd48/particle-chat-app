@@ -110,7 +110,8 @@ const ChatScreen = ({ chat, messages }) => {
 
    const ShowMessages = () => {
       if (messagesSnapshot.length > 0) {
-         scrollToBottom();
+         if (messagesSnapshot.length > 10) scrollToBottom();
+
          return messagesSnapshot.map((message) => (
             <Message message={message} key={message.id} user={message.user} />
          ));
@@ -287,7 +288,7 @@ const EndOfMessage = styled.div`
 const MessageContainer = styled.div`
    padding: 10px 30px 30px;
    background-color: #e5ded8;
-   min-height: calc(100vh - 88px);
+   min-height: calc(100vh - 150px);
 `;
 
 const HeaderIcons = styled.div``;
